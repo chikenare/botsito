@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'setting_provider.g.dart';
 
-const prefsSettingKey = 'setting';
+const prefsSettingKey = 'setting2';
 
 @riverpod
 class SettingP extends _$SettingP {

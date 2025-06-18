@@ -70,6 +70,7 @@ class Allcalidad {
         quality: e['quality'],
         language: e['lang'],
         isDownload: false,
+        include: false,
       );
     });
 
@@ -79,6 +80,7 @@ class Allcalidad {
         quality: e['quality'],
         language: e['lang'],
         isDownload: true,
+        include: false,
       );
     });
     return [...embeds, ...downloads];

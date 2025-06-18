@@ -52,6 +52,7 @@ dependencies:
     version: 3.1.8
     hosted: https://pub.isar-community.dev/
   path_provider: ^2.1.5
+  freezed_annotation: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -64,7 +65,7 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
   riverpod_generator: ^2.6.5
-  build_runner: ^2.5.1
+  build_runner: ^2.5.2
   custom_lint: ^0.7.5
   riverpod_lint: ^2.6.5
   json_serializable: ^6.9.5
@@ -73,6 +74,7 @@ dev_dependencies:
       url: https://github.com/chikenare/isar
       ref: v3
       path: packages/isar_generator/
+  freezed: ^3.0.6
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

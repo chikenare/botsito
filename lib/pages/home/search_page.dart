@@ -30,16 +30,12 @@ class SearchPage extends ConsumerWidget {
               hintText: 'Buscar',
               prefixIcon: Icon(Icons.search),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400, width: 1.0),
+                borderSide: BorderSide(color: Colors.grey.shade400),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey.shade400, width: 1.0),
+                borderSide: BorderSide(color: Colors.grey.shade400),
               ),
               filled: true,
-              contentPadding: EdgeInsets.symmetric(
-                vertical: 16.0,
-                horizontal: 20.0,
-              ),
             ),
           ),
           ref

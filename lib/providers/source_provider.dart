@@ -1,9 +1,9 @@
 import 'package:botsito/models/content.dart';
 import 'package:botsito/models/link.dart';
+import 'package:botsito/models/remote_config/host_remote_config.dart';
 import 'package:botsito/models/season.dart';
-import 'package:botsito/models/setting/domain.dart';
 import 'package:botsito/plugins/sources/allcalidad.dart';
-import 'package:botsito/providers/setting_provider.dart';
+import 'package:botsito/providers/remote_config_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -24,29 +24,30 @@ class Search extends _$Search {
 Future<List<Link>> link(Ref ref, String id) async {
   final links = await Allcalidad().getLinks(id);
 
-  final domains = (await ref.read(settingPProvider.future))?.domains ?? [];
-
-  final ignoredDomains = domains
-      .where((e) => e.ignore)
-      .map((e) => e.hostname)
-      .toList();
-
-  links.removeWhere((e) => ignoredDomains.contains(e.hostname));
+  final hosts = (await ref.read(remoteConfigProvider.future)).hosts;
 
   return links.map((link) {
-    final newDomain = _getDomainToReplace(link, domains);
+    final newDomain = _getDomainToReplace(link, hosts);
+
+    final include = hosts.any(
+      (host) => [...host.toReplace, host.domain].contains(link.hostname),
+    );
 
     return link.copyWith(
       url: newDomain == null
           ? null
-          : link.url.replaceFirst(link.hostname, newDomain.hostname),
+          : link.url.replaceFirst(link.hostname, newDomain.domain),
+      include: include,
     );
   }).toList();
 }
 
-Domain? _getDomainToReplace(Link link, List<Domain> domains) {
+HostRemoteConfig? _getDomainToReplace(
+  Link link,
+  List<HostRemoteConfig> domains,
+) {
   for (final d in domains) {
-    if (d.childDomains.contains(link.hostname)) {
+    if (d.toReplace.contains(link.hostname)) {
       return d;
     }
   }

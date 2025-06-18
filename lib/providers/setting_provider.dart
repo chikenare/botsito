@@ -17,7 +17,7 @@ class SettingP extends _$SettingP {
     final data = prefs.getString(prefsSettingKey);
 
     if (data == null) {
-      return Setting(source: 'allcalidad.re', domains: []);
+      return Setting(source: 'allcalidad.re', forceInclude: false);
     }
 
     final json = jsonDecode(data);

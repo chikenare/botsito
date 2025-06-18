@@ -2,6 +2,7 @@ import 'package:botsito/models/content.dart';
 import 'package:botsito/models/season.dart';
 import 'package:botsito/pages/content/widgets/episode_item.dart';
 import 'package:botsito/providers/source_provider.dart';
+import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -82,9 +83,11 @@ class ContentPage extends HookConsumerWidget {
                             linkProvider(episode.id).future,
                           );
                           for (final l in data) {
-                            links.add(
-                              '${l.url} From botsito ${episode.getVid()}',
-                            );
+                            if (l.include) {
+                              links.add(
+                                '${l.url} From botsito ${episode.getVid()}',
+                              );
+                            }
                           }
 
                           currentProgress.value++;
@@ -93,6 +96,12 @@ class ContentPage extends HookConsumerWidget {
                         Clipboard.setData(
                           ClipboardData(text: links.join('\n')),
                         );
+                        if (context.mounted) {
+                          showSnackbar(
+                            context,
+                            title: 'Enlaces copiados (${links.length})',
+                          );
+                        }
 
                         isLoading.value = false;
                       },

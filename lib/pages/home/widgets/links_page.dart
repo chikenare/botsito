@@ -12,11 +12,12 @@ class LinksPage extends StatelessWidget {
   final String id;
 
   void _copy(BuildContext context, List<Link> links) {
-    final data = links.map((e) => e.url).join('\n');
-    Clipboard.setData(ClipboardData(text: data));
+    final data = links.where((e) => e.include);
+    final dataString = data.map((e) => e.url).join('\n');
+    Clipboard.setData(ClipboardData(text: dataString));
 
     if (context.mounted) {
-      showSnackbar(context, title: 'Enlaces copiados (${links.length})');
+      showSnackbar(context, title: 'Enlaces copiados (${data.length})');
     }
   }
 
@@ -51,6 +52,7 @@ class LinksPage extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = links[index];
               return ListTile(
+                enabled: item.include,
                 onTap: () {
                   launchUrlString(
                     item.url,

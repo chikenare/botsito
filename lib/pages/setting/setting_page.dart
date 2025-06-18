@@ -1,5 +1,4 @@
-import 'package:botsito/models/setting/domain.dart';
-import 'package:botsito/pages/setting/domains_page.dart';
+import 'package:botsito/pages/setting/hosts_page.dart';
 import 'package:botsito/providers/setting_provider.dart';
 import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -35,19 +34,16 @@ class SettingPage extends StatelessWidget {
                 title: Text('Source'),
                 subtitle: Text(setting.source),
               ),
-              ListTile(
-                onTap: () async {
-                  final res = await Navigator.push<Domain?>(
-                    context,
-                    MaterialPageRoute(builder: (_) => DomainsPage()),
-                  );
-                  if (res != null) {
-                    setting.domains.add(res);
-                    ref.read(settingPProvider.notifier).updateSetting(setting);
-                  }
+              HostsPage(),
+              SwitchListTile(
+                onChanged: (value) {
+                  ref
+                      .read(settingPProvider.notifier)
+                      .updateSetting(setting.copyWith(forceInclude: value));
                 },
-                title: Text('Dominios'),
-                subtitle: Text(setting.domains.length.toString()),
+                value: setting.forceInclude,
+                title: Text('Forzar enlace'),
+                subtitle: Text('Incluir enlaces sín dominio verificado'),
               ),
             ],
           );

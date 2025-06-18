@@ -3,12 +3,14 @@ class Link {
   final String quality;
   final String language;
   final bool isDownload;
+  final bool include;
 
   const Link({
     required this.url,
     required this.quality,
     required this.language,
     required this.isDownload,
+    required this.include,
   });
 
   String get hostname {
@@ -22,12 +24,14 @@ class Link {
     String? quality,
     String? language,
     bool? isDownload,
+    bool? include,
   }) {
     return Link(
       url: url ?? this.url,
       quality: quality ?? this.quality,
       language: language ?? this.language,
       isDownload: isDownload ?? this.isDownload,
+      include: include ?? this.include,
     );
   }
 }

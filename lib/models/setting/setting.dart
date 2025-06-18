@@ -1,18 +1,19 @@
-import 'package:botsito/models/setting/domain.dart';
-
 class Setting {
   final String source;
-  final List<Domain> domains;
+  final bool forceInclude;
 
-  const Setting({required this.source, required this.domains});
+  const Setting({required this.source, required this.forceInclude});
 
-  factory Setting.fromJson(Map<String, dynamic> json) => Setting(
-    source: json['source'],
-    domains: List<Domain>.from(json['domains'].map((e) => Domain.fromJson(e))),
-  );
+  factory Setting.fromJson(Map<String, dynamic> json) =>
+      Setting(source: json['source'], forceInclude: json['forceInclude']);
 
   Map<String, dynamic> toJson() => {
     'source': source,
-    'domains': domains.map((e) => e.toJson()).toList(),
+    'forceInclude': forceInclude,
   };
+
+  Setting copyWith({String? source, bool? forceInclude}) => Setting(
+    source: source ?? this.source,
+    forceInclude: forceInclude ?? this.forceInclude,
+  );
 }

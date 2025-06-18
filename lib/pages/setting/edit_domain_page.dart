@@ -12,9 +12,10 @@ class EditDomainPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
+    final hostnameController = useTextEditingController(text: domain.hostname);
     final nameController = useTextEditingController(text: domain.name);
     final newReplaceDomainController = useTextEditingController();
-    final replaceDomains = useState<List<String>>(domain.replaceBy);
+    final childDomains = useState<List<String>>(domain.childDomains);
     final ignore = useState(domain.ignore);
     return Scaffold(
       appBar: AppBar(title: Text('Editar')),
@@ -28,6 +29,36 @@ class EditDomainPage extends HookConsumerWidget {
               SizedBox(height: 30),
               TextFormField(
                 controller: nameController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nombre requerido';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  hintText: 'Nombre',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1.0,
+                    ),
+                  ),
+                  filled: true,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 20.0,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: hostnameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Dominio requerido';
@@ -71,11 +102,11 @@ class EditDomainPage extends HookConsumerWidget {
                 decoration: InputDecoration(
                   suffixIcon: IconButton(
                     onPressed: () {
-                      if (!replaceDomains.value.contains(
+                      if (!childDomains.value.contains(
                         newReplaceDomainController.text,
                       )) {
-                        replaceDomains.value = [
-                          ...replaceDomains.value,
+                        childDomains.value = [
+                          ...childDomains.value,
                           newReplaceDomainController.text.toLowerCase(),
                         ];
                       }
@@ -83,7 +114,7 @@ class EditDomainPage extends HookConsumerWidget {
                     },
                     icon: Icon(Icons.add),
                   ),
-                  hintText: 'Reemplazar por',
+                  hintText: 'Dominios extra',
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.grey.shade400,
@@ -106,12 +137,12 @@ class EditDomainPage extends HookConsumerWidget {
               SizedBox(height: 10),
               Wrap(
                 spacing: 4,
-                children: replaceDomains.value
+                children: childDomains.value
                     .map(
                       (e) => Chip(
                         label: Text(e),
                         onDeleted: () {
-                          replaceDomains.value = replaceDomains.value
+                          childDomains.value = childDomains.value
                               .where((listDomain) => listDomain != e)
                               .toList();
                         },
@@ -137,10 +168,11 @@ class EditDomainPage extends HookConsumerWidget {
                     if (setting == null) return;
 
                     final edited = Domain(
+                      name: nameController.text,
                       id: domain.id.toLowerCase(),
-                      name: domain.name,
+                      hostname: hostnameController.text,
                       ignore: ignore.value,
-                      replaceBy: replaceDomains.value,
+                      childDomains: childDomains.value,
                     );
 
                     final index = setting.domains.indexWhere(

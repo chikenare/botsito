@@ -6,13 +6,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 part 'setting_provider.g.dart';
 
+const prefsSettingKey = 'setting';
+
 @riverpod
 class SettingP extends _$SettingP {
   @override
   Future<Setting?> build() async {
     final prefs = await SharedPreferences.getInstance();
 
-    final data = prefs.getString('setting');
+    final data = prefs.getString(prefsSettingKey);
 
     if (data == null) {
       return Setting(source: 'allcalidad.re', domains: []);
@@ -28,7 +30,7 @@ class SettingP extends _$SettingP {
 
     final data = jsonEncode(setting.toJson());
 
-    await prefs.setString('setting', data);
+    await prefs.setString(prefsSettingKey, data);
 
     state = AsyncValue.data(setting);
   }

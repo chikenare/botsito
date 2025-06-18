@@ -1,8 +1,8 @@
 import 'package:botsito/models/setting/domain.dart';
 import 'package:botsito/pages/setting/domains_page.dart';
 import 'package:botsito/providers/setting_provider.dart';
+import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingPage extends StatelessWidget {
@@ -30,7 +30,7 @@ class SettingPage extends StatelessWidget {
             children: [
               ListTile(
                 onTap: () {
-                  Fluttertoast.showToast(msg: 'Pronto habrá más 🥵');
+                  showSnackbar(context, title: 'Pronto habrá más 🥵');
                 },
                 title: Text('Source'),
                 subtitle: Text(setting.source),

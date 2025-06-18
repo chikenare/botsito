@@ -45,7 +45,7 @@ class DomainsPage extends ConsumerWidget {
               itemBuilder: (context, index) => Dismissible(
                 onDismissed: (direction) {
                   setting.domains.removeWhere(
-                    (e) => e.name == setting.domains[index].name,
+                    (e) => e.hostname == setting.domains[index].hostname,
                   );
                   settingNotifier.updateSetting(setting);
                 },
@@ -70,7 +70,7 @@ class DomainsPage extends ConsumerWidget {
                           EditDomainPage(domain: setting.domains[index]),
                     ),
                   ),
-                  title: Text(setting.domains[index].name),
+                  title: Text(setting.domains[index].hostname),
                 ),
               ),
             ),

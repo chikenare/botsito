@@ -28,7 +28,7 @@ Future<List<Link>> link(Ref ref, String id) async {
 
   final ignoredDomains = domains
       .where((e) => e.ignore)
-      .map((e) => e.name)
+      .map((e) => e.hostname)
       .toList();
 
   links.removeWhere((e) => ignoredDomains.contains(e.hostname));
@@ -39,14 +39,14 @@ Future<List<Link>> link(Ref ref, String id) async {
     return link.copyWith(
       url: newDomain == null
           ? null
-          : link.url.replaceFirst(link.hostname, newDomain.name),
+          : link.url.replaceFirst(link.hostname, newDomain.hostname),
     );
   }).toList();
 }
 
 Domain? _getDomainToReplace(Link link, List<Domain> domains) {
   for (final d in domains) {
-    if (d.replaceBy.contains(link.hostname)) {
+    if (d.childDomains.contains(link.hostname)) {
       return d;
     }
   }

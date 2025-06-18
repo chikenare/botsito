@@ -11,6 +11,7 @@ class NewDomainPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
+    final hostnameController = useTextEditingController();
     final nameController = useTextEditingController();
     final newReplaceDomainController = useTextEditingController();
     final replaceDomains = useState<List<String>>([]);
@@ -27,6 +28,36 @@ class NewDomainPage extends HookConsumerWidget {
               SizedBox(height: 30),
               TextFormField(
                 controller: nameController,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Nombre requerido';
+                  }
+                  return null;
+                },
+                decoration: InputDecoration(
+                  hintText: 'Nombre',
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1.0,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1.0,
+                    ),
+                  ),
+                  filled: true,
+                  contentPadding: EdgeInsets.symmetric(
+                    vertical: 16.0,
+                    horizontal: 20.0,
+                  ),
+                ),
+              ),
+              SizedBox(height: 16),
+              TextFormField(
+                controller: hostnameController,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Dominio requerido';
@@ -82,7 +113,7 @@ class NewDomainPage extends HookConsumerWidget {
                     },
                     icon: Icon(Icons.add),
                   ),
-                  hintText: 'Reemplazar por',
+                  hintText: 'Dominios extra',
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.grey.shade400,
@@ -135,9 +166,10 @@ class NewDomainPage extends HookConsumerWidget {
                     final id = generateRandomString(16);
                     final domain = Domain(
                       id: id,
-                      name: nameController.text.toLowerCase(),
+                      name: nameController.text,
+                      hostname: hostnameController.text.toLowerCase(),
                       ignore: ignore.value,
-                      replaceBy: replaceDomains.value,
+                      childDomains: replaceDomains.value,
                     );
                     Navigator.pop(context, domain);
                   }

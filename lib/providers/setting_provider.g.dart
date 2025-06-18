@@ -6,7 +6,7 @@ part of 'setting_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$settingPHash() => r'148e8de33819c7dacd8f496aeda4b673472c45f0';
+String _$settingPHash() => r'3ebb1693efd8460f4e43a74075ab3da833131d7f';
 
 /// See also [SettingP].
 @ProviderFor(SettingP)

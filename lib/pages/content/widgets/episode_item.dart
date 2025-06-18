@@ -1,9 +1,9 @@
 import 'package:botsito/models/episode.dart';
 import 'package:botsito/providers/source_provider.dart';
+import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class EpisodeItem extends HookConsumerWidget {
@@ -23,8 +23,9 @@ class EpisodeItem extends HookConsumerWidget {
             .join(' From botsito ${episode.getVid()} \n');
         Clipboard.setData(ClipboardData(text: data));
         isLoading.value = false;
-
-        Fluttertoast.showToast(msg: 'Enlaces copiados (${links.length})');
+        if (context.mounted) {
+          showSnackbar(context, title: 'Enlaces copiados (${links.length})');
+        }
       },
       trailing: isLoading.value
           ? SizedBox.square(

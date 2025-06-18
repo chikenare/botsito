@@ -1,8 +1,8 @@
 import 'package:botsito/models/link.dart';
 import 'package:botsito/providers/source_provider.dart';
+import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -10,11 +10,13 @@ class LinksPage extends StatelessWidget {
   const LinksPage({super.key, required this.id});
   final String id;
 
-  void _copy(List<Link> links) {
+  void _copy(BuildContext context, List<Link> links) {
     final data = links.map((e) => e.url).join('\n');
     Clipboard.setData(ClipboardData(text: data));
 
-    Fluttertoast.showToast(msg: 'Copiado');
+    if (context.mounted) {
+      showSnackbar(context, title: 'Enlaces copiados (${links.length})');
+    }
   }
 
   @override
@@ -35,7 +37,7 @@ class LinksPage extends StatelessWidget {
             title: Text('Links (${links.length})'),
             actions: [
               TextButton.icon(
-                onPressed: () => _copy(links),
+                onPressed: () => _copy(context, links),
                 label: Text('Copiar'),
                 icon: Icon(Icons.copy_all),
               ),

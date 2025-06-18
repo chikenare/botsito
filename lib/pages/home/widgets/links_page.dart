@@ -3,6 +3,7 @@ import 'package:botsito/providers/source_provider.dart';
 import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -21,6 +22,8 @@ class LinksPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final title =
+        GoRouter.of(context).state.uri.queryParameters['title'] ?? 'No title';
     return Consumer(
       builder: (context, ref, child) {
         final provider = ref.watch(linkProvider(id));
@@ -34,11 +37,10 @@ class LinksPage extends StatelessWidget {
         final links = provider.value ?? [];
         return Scaffold(
           appBar: AppBar(
-            title: Text('Links (${links.length})'),
+            title: Text(title),
             actions: [
-              TextButton.icon(
+              IconButton(
                 onPressed: () => _copy(context, links),
-                label: Text('Copiar'),
                 icon: Icon(Icons.copy_all),
               ),
             ],

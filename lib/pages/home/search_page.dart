@@ -60,7 +60,9 @@ class SearchPage extends ConsumerWidget {
                       return GestureDetector(
                         onTap: () => item.isSerie
                             ? context.push('/contents', extra: item)
-                            : context.push('/links/${item.id}'),
+                            : context.push(
+                                '/links/${item.id}?title=${item.title}',
+                              ),
                         child: ClipRRect(
                           borderRadius: BorderRadiusGeometry.circular(4.0),
                           child: Image.network(

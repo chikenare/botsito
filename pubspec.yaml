@@ -45,6 +45,13 @@ dependencies:
   shared_preferences: ^2.5.3
   lottie: ^3.3.1
   flutter_launcher_icons: ^0.14.4
+  isar: 
+    version: 3.1.8
+    hosted: https://pub.isar-community.dev/
+  isar_flutter_libs: # contains Isar Core
+    version: 3.1.8
+    hosted: https://pub.isar-community.dev/
+  path_provider: ^2.1.5
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +68,11 @@ dev_dependencies:
   custom_lint: ^0.7.5
   riverpod_lint: ^2.6.5
   json_serializable: ^6.9.5
+  isar_generator: 
+    git:
+      url: https://github.com/chikenare/isar
+      ref: v3
+      path: packages/isar_generator/
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

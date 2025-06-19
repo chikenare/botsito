@@ -22,13 +22,19 @@ class Cinecalidad implements SourceBase {
     final doc = parse(res.data);
     final items = doc
         .querySelectorAll('.custom')
-        .where((tmp) => tmp.querySelector('.selt ')?.text != null)
+        .where(
+          (tmp) => tmp.querySelector('img')?.attributes['data-src'] != null,
+        )
         .map((e) {
+          final image = e.querySelector('img')!.attributes['data-src']!;
+
+          final url = e.querySelector('a')!.attributes['href']!;
+          final title = e.querySelector('.in_title')?.text ?? 'No title';
           return Content(
-            id: e.querySelector('a')!.attributes['href']!,
+            id: url,
             slug: 'slug',
-            title: 'Title',
-            image: e.querySelector('img')!.attributes['data-src']!,
+            title: title,
+            image: image,
             isSerie: e.querySelector('.selt')?.text != 'Película',
           );
         })
@@ -77,7 +83,6 @@ class Cinecalidad implements SourceBase {
 
   @override
   Future<List<Link>> getLinks(String id) async {
-
     final res = await _dio.get(id);
     final doc = parse(res.data);
 

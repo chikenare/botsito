@@ -6,7 +6,24 @@ part of 'source_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$linkHash() => r'1eef25314964eeea6b2edb1e04e8301f11c72204';
+String _$getSourceInstanceHash() => r'a4b98b3af3c5a0fa444dd1327d2ec66866f416d8';
+
+/// See also [getSourceInstance].
+@ProviderFor(getSourceInstance)
+final getSourceInstanceProvider = AutoDisposeFutureProvider<dynamic>.internal(
+  getSourceInstance,
+  name: r'getSourceInstanceProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$getSourceInstanceHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+@Deprecated('Will be removed in 3.0. Use Ref instead')
+// ignore: unused_element
+typedef GetSourceInstanceRef = AutoDisposeFutureProviderRef<dynamic>;
+String _$linkHash() => r'4088eb9f4c078722c51a6b842e0f5774c2f6db24';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -143,7 +160,7 @@ class _LinkProviderElement extends AutoDisposeFutureProviderElement<List<Link>>
   String get id => (origin as LinkProvider).id;
 }
 
-String _$seasonHash() => r'3f4f6627eec7ef9bba1d61f8aa8d87d54a3144ad';
+String _$seasonHash() => r'556495bf2dc783ad4f665957559fa5d3fa03bfbe';
 
 /// See also [season].
 @ProviderFor(season)
@@ -260,7 +277,7 @@ class _SeasonProviderElement
   String get id => (origin as SeasonProvider).id;
 }
 
-String _$searchHash() => r'8fb9ff3155f7582040a7b2c7d3f2ab78254dc198';
+String _$searchHash() => r'324900c8728b0f95d88681bb0b3980c9b0d9feb9';
 
 /// See also [Search].
 @ProviderFor(Search)

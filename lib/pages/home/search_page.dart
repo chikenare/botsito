@@ -22,7 +22,7 @@ class SearchPage extends ConsumerWidget {
         children: [
           TextField(
             onChanged: (value) {
-              if (value.length >= 2) {
+              if (value.length >= 3) {
                 ref.read(searchProvider.notifier).search(value);
               }
             },
@@ -57,7 +57,7 @@ class SearchPage extends ConsumerWidget {
                         onTap: () => item.isSerie
                             ? context.push('/contents', extra: item)
                             : context.push(
-                                '/links/${item.id}?title=${item.title}',
+                                '/links/${Uri.encodeComponent(item.id)}?title=${item.title}',
                               ),
                         child: ClipRRect(
                           borderRadius: BorderRadiusGeometry.circular(4.0),

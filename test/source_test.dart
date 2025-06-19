@@ -1,18 +1,25 @@
 import 'dart:developer';
 
-import 'package:botsito/plugins/sources/allcalidad.dart';
+import 'package:botsito/plugins/sources/cinecalidad.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   test('Test source', () async {
-    final allCalidad = Allcalidad();
+    final instance = Cinecalidad();
 
-    final search = await allCalidad.search('Dune: Prophecy');
+    final search = await instance.search('du');
+
     final id = search.first.id;
 
-    final seasons = await allCalidad.seasons(id);
-    final links = await allCalidad.getLinks(seasons.first.episodes.first.id);
+    // final seasons = await instance.seasons(id);
+    final links = await instance.getLinks(search.first.id);
 
-    log(links.length.toString());
+    log(id);
+
+    for (final l in links) {
+      log(l.url);
+    }
+
+    // log(links.length.toString());
   });
 }

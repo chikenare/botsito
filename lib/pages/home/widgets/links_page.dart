@@ -33,7 +33,9 @@ class LinksPage extends StatelessWidget {
           return Material(child: Center(child: CircularProgressIndicator()));
         }
         if (provider.hasError) {
-          return Text(provider.error.toString());
+          return Center(
+            child: Material(child: Text(provider.error.toString())),
+          );
         }
         final links = provider.value ?? [];
         return Scaffold(

@@ -3,11 +3,34 @@ import 'package:botsito/models/link.dart';
 import 'package:botsito/models/remote_config/host_remote_config.dart';
 import 'package:botsito/models/season.dart';
 import 'package:botsito/plugins/sources/allcalidad.dart';
+import 'package:botsito/plugins/sources/cinecalidad.dart';
 import 'package:botsito/providers/remote_config_provider.dart';
+import 'package:botsito/providers/setting_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'source_provider.g.dart';
+
+final Map<String, Function> _constructors = {
+  'Cinecalidad': () => Cinecalidad(),
+  'Allcalidad': () => Allcalidad(),
+};
+
+@riverpod
+Future<dynamic> getSourceInstance(Ref ref) async {
+  final source = (await ref.read(settingPProvider.future))?.source;
+
+  if (source == null) {
+    throw Exception('Error en config we');
+  }
+
+  final constructor = _constructors[source];
+  if (constructor != null) {
+    return constructor();
+  } else {
+    throw Exception('Clase no registrada: $source');
+  }
+}
 
 @riverpod
 class Search extends _$Search {
@@ -15,14 +38,17 @@ class Search extends _$Search {
   Future<List<Content>> build() => Future.value([]);
 
   Future<void> search(String query) async {
-    final res = await Allcalidad().search(query);
+    final instance = await ref.read(getSourceInstanceProvider.future);
+    final res = await instance.search(query);
     state = AsyncValue.data(res);
   }
 }
 
 @riverpod
 Future<List<Link>> link(Ref ref, String id) async {
-  final links = await Allcalidad().getLinks(id);
+  final instance = await ref.read(getSourceInstanceProvider.future);
+
+  final List<Link> links = await instance.getLinks(id);
 
   final hosts = (await ref.read(remoteConfigProvider.future)).hosts;
 
@@ -56,5 +82,7 @@ HostRemoteConfig? _getDomainToReplace(
 
 @riverpod
 Future<List<Season>> season(Ref ref, String id) async {
-  return await Allcalidad().seasons(id);
+  final instance = await ref.read(getSourceInstanceProvider.future);
+
+  return await instance.seasons(id);
 }

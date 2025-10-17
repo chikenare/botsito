@@ -3,8 +3,6 @@ import 'package:botsito/models/link.dart';
 import 'package:botsito/models/season.dart';
 import 'package:botsito/plugins/sources/allcalidad.dart';
 import 'package:botsito/plugins/sources/cinecalidad.dart';
-import 'package:botsito/providers/setting_provider.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'source_provider.g.dart';
@@ -15,18 +13,19 @@ final Map<String, Function> _constructors = {
 };
 
 @riverpod
-Future<dynamic> getSourceInstance(Ref ref) async {
-  final source = (await ref.read(settingPProvider.future))?.source;
+class SourceP extends _$SourceP {
+  @override
+  String build() => 'Cinecalidad';
+}
 
-  if (source == null) {
-    throw Exception('Error en config we');
-  }
-
-  final constructor = _constructors[source];
+@riverpod
+dynamic getSourceInstance(Ref ref) {
+  final provider = ref.read(sourcePProvider);
+  final constructor = _constructors[provider];
   if (constructor != null) {
     return constructor();
   } else {
-    throw Exception('Clase no registrada: $source');
+    throw Exception('Clase no registrada: $provider');
   }
 }
 
@@ -36,7 +35,7 @@ class Search extends _$Search {
   Future<List<Content>> build() => Future.value([]);
 
   Future<void> search(String query) async {
-    final instance = await ref.read(getSourceInstanceProvider.future);
+    final instance = ref.read(getSourceInstanceProvider);
     final res = await instance.search(query);
     state = AsyncValue.data(res);
   }
@@ -44,14 +43,14 @@ class Search extends _$Search {
 
 @riverpod
 Future<List<Link>> link(Ref ref, String id) async {
-  final instance = await ref.read(getSourceInstanceProvider.future);
+  final instance = await ref.read(getSourceInstanceProvider);
 
   return await instance.getLinks(id);
 }
 
 @riverpod
 Future<List<Season>> season(Ref ref, String id) async {
-  final instance = await ref.read(getSourceInstanceProvider.future);
+  final instance = await ref.read(getSourceInstanceProvider);
 
   return await instance.seasons(id);
 }

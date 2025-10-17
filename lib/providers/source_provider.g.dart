@@ -9,12 +9,64 @@ part of 'source_provider.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
+@ProviderFor(SourceP)
+const sourcePProvider = SourcePProvider._();
+
+final class SourcePProvider extends $NotifierProvider<SourceP, String> {
+  const SourcePProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'sourcePProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$sourcePHash();
+
+  @$internal
+  @override
+  SourceP create() => SourceP();
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(String value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<String>(value),
+    );
+  }
+}
+
+String _$sourcePHash() => r'45ad8fdb7ea81920460153c5ccc7ba85e8a70321';
+
+abstract class _$SourceP extends $Notifier<String> {
+  String build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<String, String>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<String, String>,
+              String,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
+
 @ProviderFor(getSourceInstance)
 const getSourceInstanceProvider = GetSourceInstanceProvider._();
 
 final class GetSourceInstanceProvider
-    extends $FunctionalProvider<AsyncValue<dynamic>, dynamic, FutureOr<dynamic>>
-    with $FutureModifier<dynamic>, $FutureProvider<dynamic> {
+    extends $FunctionalProvider<dynamic, dynamic, dynamic>
+    with $Provider<dynamic> {
   const GetSourceInstanceProvider._()
     : super(
         from: null,
@@ -31,16 +83,24 @@ final class GetSourceInstanceProvider
 
   @$internal
   @override
-  $FutureProviderElement<dynamic> $createElement($ProviderPointer pointer) =>
-      $FutureProviderElement(pointer);
+  $ProviderElement<dynamic> $createElement($ProviderPointer pointer) =>
+      $ProviderElement(pointer);
 
   @override
-  FutureOr<dynamic> create(Ref ref) {
+  dynamic create(Ref ref) {
     return getSourceInstance(ref);
+  }
+
+  /// {@macro riverpod.override_with_value}
+  Override overrideWithValue(dynamic value) {
+    return $ProviderOverride(
+      origin: this,
+      providerOverride: $SyncValueProvider<dynamic>(value),
+    );
   }
 }
 
-String _$getSourceInstanceHash() => r'a4b98b3af3c5a0fa444dd1327d2ec66866f416d8';
+String _$getSourceInstanceHash() => r'a89a946a782b07faabf3605cfb0182f935c7cf92';
 
 @ProviderFor(Search)
 const searchProvider = SearchProvider._();
@@ -66,7 +126,7 @@ final class SearchProvider
   Search create() => Search();
 }
 
-String _$searchHash() => r'324900c8728b0f95d88681bb0b3980c9b0d9feb9';
+String _$searchHash() => r'f1c4c9a2a1a4bf087980f19075423ecef9f2b6dc';
 
 abstract class _$Search extends $AsyncNotifier<List<Content>> {
   FutureOr<List<Content>> build();
@@ -141,7 +201,7 @@ final class LinkProvider
   }
 }
 
-String _$linkHash() => r'a922c2e88737f79dd7bff933dc0ec716677e73cc';
+String _$linkHash() => r'70bf30da66092a8f6f2fb2d85708acd045413230';
 
 final class LinkFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Link>>, String> {
@@ -215,7 +275,7 @@ final class SeasonProvider
   }
 }
 
-String _$seasonHash() => r'556495bf2dc783ad4f665957559fa5d3fa03bfbe';
+String _$seasonHash() => r'16a2dbe727614397a369adc529bd713fe895e2d6';
 
 final class SeasonFamily extends $Family
     with $FunctionalFamilyOverride<FutureOr<List<Season>>, String> {

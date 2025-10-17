@@ -1,7 +1,7 @@
+import 'package:botsito/pages/home/widgets/content_item.dart';
 import 'package:botsito/pages/home/widgets/search_input.dart';
 import 'package:botsito/providers/source_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SearchPage extends ConsumerWidget {
@@ -32,27 +32,8 @@ class SearchPage extends ConsumerWidget {
                                 crossAxisSpacing: 8,
                               ),
                           itemCount: content.length,
-                          itemBuilder: (context, index) {
-                            final item = content[index];
-                            return GestureDetector(
-                              onTap: () => item.isSerie
-                                  ? context.push('/contents', extra: item)
-                                  : context.push(
-                                      '/links/${Uri.encodeComponent(item.id)}?title=${item.title}',
-                                    ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadiusGeometry.circular(
-                                  12.0,
-                                ),
-                                child: Image.network(
-                                  item.image,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) =>
-                                      Icon(Icons.error),
-                                ),
-                              ),
-                            );
-                          },
+                          itemBuilder: (context, index) =>
+                              ContentItem(content: content[index]),
                         ),
                       ),
                       error: (error, stackTrace) => Text('Error'),

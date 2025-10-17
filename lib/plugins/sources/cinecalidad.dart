@@ -87,13 +87,7 @@ class Cinecalidad implements SourceBase {
     final doc = parse(res.data);
 
     final items = doc.querySelectorAll('.dooplay_player_option').map((e) {
-      return Link(
-        include: true,
-        isDownload: false,
-        language: 'Latino',
-        quality: '',
-        url: e.attributes['data-option']!,
-      );
+      return Link(url: e.attributes['data-option']!);
     });
 
     return items.toList();

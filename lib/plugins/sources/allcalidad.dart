@@ -65,23 +65,11 @@ class Allcalidad {
     final res = await _dio.get('/player?post_id=$postId&_any=1');
 
     final embeds = res.data['data']['embeds'].map((e) {
-      return Link(
-        url: e['url'],
-        quality: e['quality'],
-        language: e['lang'],
-        isDownload: false,
-        include: false,
-      );
+      return Link(url: e['url']);
     });
 
     final downloads = res.data['data']['downloads'].map((e) {
-      return Link(
-        url: e['url'],
-        quality: e['quality'],
-        language: e['lang'],
-        isDownload: true,
-        include: false,
-      );
+      return Link(url: e['url']);
     });
     return [...embeds, ...downloads];
   }

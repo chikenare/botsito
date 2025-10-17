@@ -78,21 +78,6 @@ class ContentPage extends HookConsumerWidget {
                         isLoading.value = true;
                         final List<String> links = [];
 
-                        for (final episode in currentSeason.value!.episodes) {
-                          final data = await ref.read(
-                            linkProvider(episode.id).future,
-                          );
-                          for (final l in data) {
-                            if (l.include) {
-                              links.add(
-                                '${l.url} From botsito ${episode.getVid()}',
-                              );
-                            }
-                          }
-
-                          currentProgress.value++;
-                        }
-
                         Clipboard.setData(
                           ClipboardData(text: links.join('\n')),
                         );

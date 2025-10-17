@@ -1,4 +1,3 @@
-import 'package:botsito/pages/setting/hosts_page.dart';
 import 'package:botsito/providers/setting_provider.dart';
 import 'package:botsito/util/constants.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +67,6 @@ class SettingPage extends StatelessWidget {
                 title: Text('Source'),
                 subtitle: Text(setting.source),
               ),
-              HostsPage(),
               SwitchListTile(
                 onChanged: (value) {
                   ref

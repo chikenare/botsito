@@ -6,292 +6,230 @@ part of 'source_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
+// ignore_for_file: type=lint, type=warning
+
+@ProviderFor(getSourceInstance)
+const getSourceInstanceProvider = GetSourceInstanceProvider._();
+
+final class GetSourceInstanceProvider
+    extends $FunctionalProvider<AsyncValue<dynamic>, dynamic, FutureOr<dynamic>>
+    with $FutureModifier<dynamic>, $FutureProvider<dynamic> {
+  const GetSourceInstanceProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'getSourceInstanceProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
+      );
+
+  @override
+  String debugGetCreateSourceHash() => _$getSourceInstanceHash();
+
+  @$internal
+  @override
+  $FutureProviderElement<dynamic> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<dynamic> create(Ref ref) {
+    return getSourceInstance(ref);
+  }
+}
+
 String _$getSourceInstanceHash() => r'a4b98b3af3c5a0fa444dd1327d2ec66866f416d8';
 
-/// See also [getSourceInstance].
-@ProviderFor(getSourceInstance)
-final getSourceInstanceProvider = AutoDisposeFutureProvider<dynamic>.internal(
-  getSourceInstance,
-  name: r'getSourceInstanceProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$getSourceInstanceHash,
-  dependencies: null,
-  allTransitiveDependencies: null,
-);
+@ProviderFor(Search)
+const searchProvider = SearchProvider._();
 
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-typedef GetSourceInstanceRef = AutoDisposeFutureProviderRef<dynamic>;
-String _$linkHash() => r'4088eb9f4c078722c51a6b842e0f5774c2f6db24';
-
-/// Copied from Dart SDK
-class _SystemHash {
-  _SystemHash._();
-
-  static int combine(int hash, int value) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + value);
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
-    return hash ^ (hash >> 6);
-  }
-
-  static int finish(int hash) {
-    // ignore: parameter_assignments
-    hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
-    // ignore: parameter_assignments
-    hash = hash ^ (hash >> 11);
-    return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
-  }
-}
-
-/// See also [link].
-@ProviderFor(link)
-const linkProvider = LinkFamily();
-
-/// See also [link].
-class LinkFamily extends Family<AsyncValue<List<Link>>> {
-  /// See also [link].
-  const LinkFamily();
-
-  /// See also [link].
-  LinkProvider call(String id) {
-    return LinkProvider(id);
-  }
-
-  @override
-  LinkProvider getProviderOverride(covariant LinkProvider provider) {
-    return call(provider.id);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'linkProvider';
-}
-
-/// See also [link].
-class LinkProvider extends AutoDisposeFutureProvider<List<Link>> {
-  /// See also [link].
-  LinkProvider(String id)
-    : this._internal(
-        (ref) => link(ref as LinkRef, id),
-        from: linkProvider,
-        name: r'linkProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$linkHash,
-        dependencies: LinkFamily._dependencies,
-        allTransitiveDependencies: LinkFamily._allTransitiveDependencies,
-        id: id,
+final class SearchProvider
+    extends $AsyncNotifierProvider<Search, List<Content>> {
+  const SearchProvider._()
+    : super(
+        from: null,
+        argument: null,
+        retry: null,
+        name: r'searchProvider',
+        isAutoDispose: true,
+        dependencies: null,
+        $allTransitiveDependencies: null,
       );
 
-  LinkProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final String id;
-
   @override
-  Override overrideWith(
-    FutureOr<List<Link>> Function(LinkRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: LinkProvider._internal(
-        (ref) => create(ref as LinkRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
-  }
+  String debugGetCreateSourceHash() => _$searchHash();
 
+  @$internal
   @override
-  AutoDisposeFutureProviderElement<List<Link>> createElement() {
-    return _LinkProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is LinkProvider && other.id == id;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin LinkRef on AutoDisposeFutureProviderRef<List<Link>> {
-  /// The parameter `id` of this provider.
-  String get id;
-}
-
-class _LinkProviderElement extends AutoDisposeFutureProviderElement<List<Link>>
-    with LinkRef {
-  _LinkProviderElement(super.provider);
-
-  @override
-  String get id => (origin as LinkProvider).id;
-}
-
-String _$seasonHash() => r'556495bf2dc783ad4f665957559fa5d3fa03bfbe';
-
-/// See also [season].
-@ProviderFor(season)
-const seasonProvider = SeasonFamily();
-
-/// See also [season].
-class SeasonFamily extends Family<AsyncValue<List<Season>>> {
-  /// See also [season].
-  const SeasonFamily();
-
-  /// See also [season].
-  SeasonProvider call(String id) {
-    return SeasonProvider(id);
-  }
-
-  @override
-  SeasonProvider getProviderOverride(covariant SeasonProvider provider) {
-    return call(provider.id);
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'seasonProvider';
-}
-
-/// See also [season].
-class SeasonProvider extends AutoDisposeFutureProvider<List<Season>> {
-  /// See also [season].
-  SeasonProvider(String id)
-    : this._internal(
-        (ref) => season(ref as SeasonRef, id),
-        from: seasonProvider,
-        name: r'seasonProvider',
-        debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-            ? null
-            : _$seasonHash,
-        dependencies: SeasonFamily._dependencies,
-        allTransitiveDependencies: SeasonFamily._allTransitiveDependencies,
-        id: id,
-      );
-
-  SeasonProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.id,
-  }) : super.internal();
-
-  final String id;
-
-  @override
-  Override overrideWith(
-    FutureOr<List<Season>> Function(SeasonRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: SeasonProvider._internal(
-        (ref) => create(ref as SeasonRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        id: id,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<List<Season>> createElement() {
-    return _SeasonProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is SeasonProvider && other.id == id;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, id.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-@Deprecated('Will be removed in 3.0. Use Ref instead')
-// ignore: unused_element
-mixin SeasonRef on AutoDisposeFutureProviderRef<List<Season>> {
-  /// The parameter `id` of this provider.
-  String get id;
-}
-
-class _SeasonProviderElement
-    extends AutoDisposeFutureProviderElement<List<Season>>
-    with SeasonRef {
-  _SeasonProviderElement(super.provider);
-
-  @override
-  String get id => (origin as SeasonProvider).id;
+  Search create() => Search();
 }
 
 String _$searchHash() => r'324900c8728b0f95d88681bb0b3980c9b0d9feb9';
 
-/// See also [Search].
-@ProviderFor(Search)
-final searchProvider =
-    AutoDisposeAsyncNotifierProvider<Search, List<Content>>.internal(
-      Search.new,
-      name: r'searchProvider',
-      debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-          ? null
-          : _$searchHash,
-      dependencies: null,
-      allTransitiveDependencies: null,
-    );
+abstract class _$Search extends $AsyncNotifier<List<Content>> {
+  FutureOr<List<Content>> build();
+  @$mustCallSuper
+  @override
+  void runBuild() {
+    final created = build();
+    final ref = this.ref as $Ref<AsyncValue<List<Content>>, List<Content>>;
+    final element =
+        ref.element
+            as $ClassProviderElement<
+              AnyNotifier<AsyncValue<List<Content>>, List<Content>>,
+              AsyncValue<List<Content>>,
+              Object?,
+              Object?
+            >;
+    element.handleValue(ref, created);
+  }
+}
 
-typedef _$Search = AutoDisposeAsyncNotifier<List<Content>>;
-// ignore_for_file: type=lint
-// ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member, deprecated_member_use_from_same_package
+@ProviderFor(link)
+const linkProvider = LinkFamily._();
+
+final class LinkProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Link>>,
+          List<Link>,
+          FutureOr<List<Link>>
+        >
+    with $FutureModifier<List<Link>>, $FutureProvider<List<Link>> {
+  const LinkProvider._({
+    required LinkFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'linkProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$linkHash();
+
+  @override
+  String toString() {
+    return r'linkProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Link>> $createElement($ProviderPointer pointer) =>
+      $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Link>> create(Ref ref) {
+    final argument = this.argument as String;
+    return link(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is LinkProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$linkHash() => r'a922c2e88737f79dd7bff933dc0ec716677e73cc';
+
+final class LinkFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Link>>, String> {
+  const LinkFamily._()
+    : super(
+        retry: null,
+        name: r'linkProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  LinkProvider call(String id) => LinkProvider._(argument: id, from: this);
+
+  @override
+  String toString() => r'linkProvider';
+}
+
+@ProviderFor(season)
+const seasonProvider = SeasonFamily._();
+
+final class SeasonProvider
+    extends
+        $FunctionalProvider<
+          AsyncValue<List<Season>>,
+          List<Season>,
+          FutureOr<List<Season>>
+        >
+    with $FutureModifier<List<Season>>, $FutureProvider<List<Season>> {
+  const SeasonProvider._({
+    required SeasonFamily super.from,
+    required String super.argument,
+  }) : super(
+         retry: null,
+         name: r'seasonProvider',
+         isAutoDispose: true,
+         dependencies: null,
+         $allTransitiveDependencies: null,
+       );
+
+  @override
+  String debugGetCreateSourceHash() => _$seasonHash();
+
+  @override
+  String toString() {
+    return r'seasonProvider'
+        ''
+        '($argument)';
+  }
+
+  @$internal
+  @override
+  $FutureProviderElement<List<Season>> $createElement(
+    $ProviderPointer pointer,
+  ) => $FutureProviderElement(pointer);
+
+  @override
+  FutureOr<List<Season>> create(Ref ref) {
+    final argument = this.argument as String;
+    return season(ref, argument);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return other is SeasonProvider && other.argument == argument;
+  }
+
+  @override
+  int get hashCode {
+    return argument.hashCode;
+  }
+}
+
+String _$seasonHash() => r'556495bf2dc783ad4f665957559fa5d3fa03bfbe';
+
+final class SeasonFamily extends $Family
+    with $FunctionalFamilyOverride<FutureOr<List<Season>>, String> {
+  const SeasonFamily._()
+    : super(
+        retry: null,
+        name: r'seasonProvider',
+        dependencies: null,
+        $allTransitiveDependencies: null,
+        isAutoDispose: true,
+      );
+
+  SeasonProvider call(String id) => SeasonProvider._(argument: id, from: this);
+
+  @override
+  String toString() => r'seasonProvider';
+}

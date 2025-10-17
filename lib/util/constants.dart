@@ -4,7 +4,6 @@ final domainRegex = RegExp(
   r'^(?:[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,}$',
 );
 
-final remoteConfigUrl = 'https://v3.playhublite.com/d/botsito/config.json';
 
 final sources = [
   Source(

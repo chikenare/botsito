@@ -87,7 +87,11 @@ class Cinecalidad implements ProviderBase {
     final doc = parse(res.data);
 
     final items = doc.querySelectorAll('.dooplay_player_option').map((e) {
-      return Link(url: e.attributes['data-option']!);
+      return Link(
+        url: e.attributes['data-option']!,
+        isDownload: false,
+        language: 'Latino',
+      );
     });
 
     return items.toList();

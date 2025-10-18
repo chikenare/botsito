@@ -69,11 +69,11 @@ class Allcalidad implements ProviderBase {
     final res = await _dio.get('/player?post_id=$postId&_any=1');
 
     final embeds = res.data['data']['embeds'].map((e) {
-      return Link(url: e['url']);
+      return Link(url: e['url'], language: e['lang'], isDownload: false);
     });
 
     final downloads = res.data['data']['downloads'].map((e) {
-      return Link(url: e['url']);
+      return Link(url: e['url'], language: e['lang'], isDownload: true);
     });
     return [...embeds, ...downloads];
   }

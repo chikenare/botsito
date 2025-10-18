@@ -1,7 +1,13 @@
 class Link {
   final String url;
+  final String language;
+  final bool isDownload;
 
-  const Link({required this.url});
+  const Link({
+    required this.url,
+    required this.language,
+    required this.isDownload,
+  });
 
   String get hostname {
     final uri = Uri.parse(url);
@@ -9,7 +15,11 @@ class Link {
     return uri.host == '' ? '${uri.scheme}.wtf' : uri.host;
   }
 
-  Link copyWith({String? url}) {
-    return Link(url: url ?? this.url);
+  Link copyWith({String? url, String? language, bool? isDownload}) {
+    return Link(
+      url: url ?? this.url,
+      language: language ?? this.language,
+      isDownload: isDownload ?? this.isDownload,
+    );
   }
 }

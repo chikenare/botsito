@@ -21,11 +21,16 @@ class LinkService {
   static String getLanguages(String language) {
     switch (language) {
       case 'Latino':
+      case 'EspañolLatino':
         return 'es';
       case 'Latino/Inglés':
         return 'es,en';
+      case 'Subtitulado':
+        return 'en';
+      case 'Castellano':
+        return 'es-ES';
       default:
-        throw ('Language $language not supported');
+        return '???';
     }
   }
 }

@@ -73,7 +73,8 @@ class Pelisforte implements ProviderBase {
             .querySelector('span.server')
             ?.text
             .replaceAll(RegExp(r'\s+'), '')
-            .trim();
+            .trim()
+            .split('-')[1];
       }
     }
     return null;

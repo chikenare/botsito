@@ -2,12 +2,12 @@ import 'package:botsito/models/content.dart';
 import 'package:botsito/models/episode.dart';
 import 'package:botsito/models/link.dart';
 import 'package:botsito/models/season.dart';
-import 'package:botsito/plugins/sources/source_base.dart';
+import 'package:botsito/plugins/sources/provider_base.dart';
 import 'package:botsito/util/get_ua.dart';
 import 'package:dio/dio.dart';
 import 'package:html/parser.dart';
 
-class Cinecalidad implements SourceBase {
+class Cinecalidad implements ProviderBase {
   static final urlBase = 'https://www.cinecalidad.ec/';
   static final Map<String, String> headers = {
     'referer': urlBase,

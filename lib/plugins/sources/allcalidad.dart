@@ -2,13 +2,15 @@ import 'package:botsito/models/content.dart';
 import 'package:botsito/models/episode.dart';
 import 'package:botsito/models/link.dart';
 import 'package:botsito/models/season.dart';
+import 'package:botsito/plugins/sources/provider_base.dart';
 import 'package:dio/dio.dart';
 
-class Allcalidad {
+class Allcalidad implements ProviderBase {
   static Dio get _dio =>
       Dio(BaseOptions(baseUrl: 'https://allcalidad.re/api/rest'));
   static const _imageUrlBase = 'https://allcalidad.re/wp-content/uploads';
 
+  @override
   Future<List<Content>> search(String query) async {
     final res = await _dio.get(
       '/search',
@@ -31,6 +33,7 @@ class Allcalidad {
     return data;
   }
 
+  @override
   Future<List<Season>> seasons(String id) async {
     final res = await _dio.get('/episodes', queryParameters: {'post_id': id});
     final List<Episode> episodes = res.data['data'].map<Episode>((e) {
@@ -61,6 +64,7 @@ class Allcalidad {
     return seasons;
   }
 
+  @override
   Future<List<Link>> getLinks(String postId) async {
     final res = await _dio.get('/player?post_id=$postId&_any=1');
 

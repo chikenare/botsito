@@ -48,12 +48,14 @@ class ContentItem extends HookConsumerWidget {
       },
       child: Stack(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(12.0),
-            child: Image.network(
-              content.image,
-              fit: BoxFit.cover,
-              errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(12.0),
+              child: Image.network(
+                content.image,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => Icon(Icons.error),
+              ),
             ),
           ),
           if (isLoading.value)

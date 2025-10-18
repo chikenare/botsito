@@ -1,9 +1,9 @@
 import 'package:botsito/models/content.dart';
 import 'package:botsito/pages/content/content_page.dart';
 import 'package:botsito/providers/source_provider.dart';
+import 'package:botsito/services/link_service.dart';
 import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,9 +19,7 @@ class ContentItem extends HookConsumerWidget {
       isLoading.value = true;
       try {
         final links = await ref.read(linkProvider(id).future);
-        await Clipboard.setData(
-          ClipboardData(text: links.map((e) => e.url).join('\n')),
-        );
+        await LinkService.copyLinks(links);
         if (context.mounted) {
           showSnackbar(context, title: 'Copiado');
         }

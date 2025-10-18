@@ -49,10 +49,24 @@ class Search extends _$Search {
 }
 
 @riverpod
-Future<List<Link>> link(Ref ref, String id) async {
+Future<List<Link>> link(
+  Ref ref,
+  String id, {
+  int? seasonNumber,
+  int? episodeNumber,
+}) async {
   final instance = await ref.read(getSourceInstanceProvider);
 
-  return await instance.getLinks(id);
+  final List<Link> links = await instance.getLinks(id);
+
+  return links
+      .map(
+        (l) => l.copyWith(
+          seasonNumber: seasonNumber,
+          episodeNumber: episodeNumber,
+        ),
+      )
+      .toList();
 }
 
 @riverpod

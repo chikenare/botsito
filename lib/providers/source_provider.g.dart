@@ -160,7 +160,7 @@ final class LinkProvider
     with $FutureModifier<List<Link>>, $FutureProvider<List<Link>> {
   const LinkProvider._({
     required LinkFamily super.from,
-    required String super.argument,
+    required (String, {int? seasonNumber, int? episodeNumber}) super.argument,
   }) : super(
          retry: null,
          name: r'linkProvider',
@@ -176,7 +176,7 @@ final class LinkProvider
   String toString() {
     return r'linkProvider'
         ''
-        '($argument)';
+        '$argument';
   }
 
   @$internal
@@ -186,8 +186,14 @@ final class LinkProvider
 
   @override
   FutureOr<List<Link>> create(Ref ref) {
-    final argument = this.argument as String;
-    return link(ref, argument);
+    final argument =
+        this.argument as (String, {int? seasonNumber, int? episodeNumber});
+    return link(
+      ref,
+      argument.$1,
+      seasonNumber: argument.seasonNumber,
+      episodeNumber: argument.episodeNumber,
+    );
   }
 
   @override
@@ -201,10 +207,14 @@ final class LinkProvider
   }
 }
 
-String _$linkHash() => r'70bf30da66092a8f6f2fb2d85708acd045413230';
+String _$linkHash() => r'a855d99e882653b016ad7eff004783c73df6e1b1';
 
 final class LinkFamily extends $Family
-    with $FunctionalFamilyOverride<FutureOr<List<Link>>, String> {
+    with
+        $FunctionalFamilyOverride<
+          FutureOr<List<Link>>,
+          (String, {int? seasonNumber, int? episodeNumber})
+        > {
   const LinkFamily._()
     : super(
         retry: null,
@@ -214,7 +224,15 @@ final class LinkFamily extends $Family
         isAutoDispose: true,
       );
 
-  LinkProvider call(String id) => LinkProvider._(argument: id, from: this);
+  LinkProvider call(String id, {int? seasonNumber, int? episodeNumber}) =>
+      LinkProvider._(
+        argument: (
+          id,
+          seasonNumber: seasonNumber,
+          episodeNumber: episodeNumber,
+        ),
+        from: this,
+      );
 
   @override
   String toString() => r'linkProvider';

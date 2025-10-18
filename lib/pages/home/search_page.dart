@@ -1,6 +1,7 @@
 import 'package:botsito/pages/home/widgets/content_item.dart';
 import 'package:botsito/pages/home/widgets/search_input.dart';
 import 'package:botsito/providers/source_provider.dart';
+import 'package:botsito/util/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -9,8 +10,22 @@ class SearchPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final provider = ref.watch(sourcePProvider);
     return Scaffold(
-      appBar: AppBar(title: Text('Botsito')),
+      appBar: AppBar(
+        title: PopupMenuButton<String>(
+          tooltip: 'Provider',
+          initialValue: provider,
+          onSelected: (value) {
+            if (value == provider) return;
+            ref.read(sourcePProvider.notifier).setProvider(value);
+          },
+          child: Text(provider),
+          itemBuilder: (_) => sources
+              .map((e) => PopupMenuItem(value: e.name, child: Text(e.name)))
+              .toList(),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Consumer(

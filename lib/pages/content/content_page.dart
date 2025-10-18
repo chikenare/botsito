@@ -1,11 +1,14 @@
+import 'dart:developer';
+
 import 'package:botsito/models/content.dart';
+import 'package:botsito/models/episode.dart';
 import 'package:botsito/models/season.dart';
-import 'package:botsito/pages/content/widgets/episode_item.dart';
 import 'package:botsito/providers/source_provider.dart';
 import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ContentPage extends HookConsumerWidget {
@@ -17,16 +20,43 @@ class ContentPage extends HookConsumerWidget {
     final currentSeason = useState<Season?>(null);
 
     final isLoading = useState(false);
-    final currentProgress = useState(0.0);
+    final current = useState(0);
+    final List<String> links = [];
+    final selected = useState<List<Episode>>([]);
 
-    return Scaffold(
-      appBar: AppBar(title: Text(content.title)),
-      body: Consumer(
+    void getLinks() async {
+      isLoading.value = true;
+      for (final e in selected.value) {
+        try {
+          final res = await ref.read(linkProvider(e.id).future);
+          current.value++;
+
+          final sE =
+              'S${e.seasonNumber.toString().padLeft(2, '0')}E${e.episodeNumber.toString().padLeft(2, '0')}';
+
+          links.addAll(res.map((l) => '${l.url} $sE'));
+        } catch (e) {
+          log(e.toString());
+        } finally {
+          isLoading.value = false;
+        }
+      }
+
+      await Clipboard.setData(ClipboardData(text: links.join('\n')));
+      if (context.mounted) context.pop();
+
+      if (context.mounted) {
+        showSnackbar(context, title: '${links.length} enlaces copiados');
+      }
+    }
+
+    return Material(
+      child: Consumer(
         builder: (context, ref, child) {
           final provider = ref.watch(seasonProvider(content.id));
 
           if (provider.isLoading) {
-            return SizedBox.shrink();
+            return Center(child: CircularProgressIndicator());
           }
 
           if (provider.hasError) {
@@ -41,77 +71,49 @@ class ContentPage extends HookConsumerWidget {
 
           return Column(
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(12),
+              Padding(
+                padding: EdgeInsetsGeometry.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _selectSeason(
+                      currentSeason: currentSeason,
+                      seasons: seasons,
+                      selected: selected,
                     ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton(
-                        icon: Icon(Icons.arrow_drop_down_rounded),
-                        dropdownColor: Colors.white,
-                        value: currentSeason.value,
-                        hint: Text('Temporada'),
-                        items: seasons
-                            .map(
-                              (season) => DropdownMenuItem(
-                                value: season,
-                                child: Text('Temporada ${season.seasonNumber}'),
-                              ),
-                            )
-                            .toList(),
-                        onChanged: (s) {
-                          currentSeason.value = s;
-                        },
+                    SizedBox(width: 8.0),
+                    if (currentSeason.value != null)
+                      TextButton.icon(
+                        onPressed: isLoading.value ? null : () => getLinks(),
+                        label: Text(
+                          '${current.value}/${selected.value.length}',
+                        ),
+                        icon: Icon(Icons.link),
                       ),
-                    ),
-                  ),
-                  if (currentSeason.value != null)
-                    IconButton(
-                      onPressed: () async {
-                        currentProgress.value = 0.0;
-                        isLoading.value = true;
-                        final List<String> links = [];
-
-                        Clipboard.setData(
-                          ClipboardData(text: links.join('\n')),
-                        );
-                        if (context.mounted) {
-                          showSnackbar(
-                            context,
-                            title: 'Enlaces copiados (${links.length})',
-                          );
-                        }
-
-                        isLoading.value = false;
-                      },
-                      icon: isLoading.value
-                          ? SizedBox.square(
-                              dimension: 16,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                value:
-                                    currentProgress.value /
-                                    currentSeason.value!.episodes.length,
-                              ),
-                            )
-                          : Icon(Icons.copy),
-                      tooltip: 'Copiar enlaces temporada',
-                    ),
-                ],
+                  ],
+                ),
               ),
               if (currentSeason.value != null)
                 Expanded(
                   child: ListView.builder(
                     itemCount: currentSeason.value!.episodes.length,
                     itemBuilder: (_, index) {
-                      return EpisodeItem(
-                        episode: currentSeason.value!.episodes[index],
+                      final episode = currentSeason.value!.episodes[index];
+                      final isSelected = selected.value.any(
+                        (e) => e.id == episode.id,
+                      );
+                      return CheckboxListTile(
+                        onChanged: (value) {
+                          if (isSelected) {
+                            selected.value = selected.value
+                                .where((e) => e != episode)
+                                .toList();
+                          } else {
+                            selected.value = [...selected.value, episode];
+                          }
+                        },
+                        value: isSelected,
+                        title: Text('Episode ${episode.episodeNumber}'),
                       );
                     },
                   ),
@@ -120,6 +122,30 @@ class ContentPage extends HookConsumerWidget {
           );
         },
       ),
+    );
+  }
+
+  Widget _selectSeason({
+    required ValueNotifier<Season?> currentSeason,
+    required ValueNotifier<List<Episode>> selected,
+    required List<Season> seasons,
+  }) {
+    return DropdownButton(
+      icon: Icon(Icons.arrow_drop_down_rounded),
+      value: currentSeason.value,
+      hint: Text('Temporada'),
+      items: seasons
+          .map(
+            (season) => DropdownMenuItem(
+              value: season,
+              child: Text('Temporada ${season.seasonNumber}'),
+            ),
+          )
+          .toList(),
+      onChanged: (s) {
+        currentSeason.value = s!;
+        selected.value = s.episodes;
+      },
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:botsito/models/content.dart';
+import 'package:botsito/pages/content/content_page.dart';
 import 'package:botsito/providers/source_provider.dart';
 import 'package:botsito/util/snackbar.dart';
 import 'package:flutter/material.dart';
@@ -39,6 +40,11 @@ class ContentItem extends HookConsumerWidget {
           getLinks(content.id);
           return;
         }
+
+        showModalBottomSheet(
+          context: context,
+          builder: (_) => ContentPage(content: content),
+        );
       },
       child: Stack(
         children: [

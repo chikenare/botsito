@@ -8,7 +8,4 @@ class Episode {
     required this.seasonNumber,
     required this.episodeNumber,
   });
-
-  String getVid() =>
-      'S${seasonNumber < 10 ? '0$seasonNumber' : seasonNumber}E${episodeNumber < 10 ? '0$episodeNumber' : episodeNumber}';
 }

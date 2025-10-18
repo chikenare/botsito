@@ -3,6 +3,7 @@ import 'package:botsito/models/link.dart';
 import 'package:botsito/models/season.dart';
 import 'package:botsito/plugins/sources/allcalidad.dart';
 import 'package:botsito/plugins/sources/cinecalidad.dart';
+import 'package:botsito/util/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'source_provider.g.dart';
@@ -15,7 +16,11 @@ final Map<String, Function> _constructors = {
 @riverpod
 class SourceP extends _$SourceP {
   @override
-  String build() => 'Cinecalidad';
+  String build() => defaultProvider;
+
+  void setProvider(String name) {
+    state = name;
+  }
 }
 
 @riverpod

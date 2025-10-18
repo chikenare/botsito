@@ -55,7 +55,7 @@ class Cinecalidad implements SourceBase {
       final episodeNumber = int.parse(match.group(2)!);
 
       return Episode(
-        id: Uri.encodeComponent(e.querySelector('a')!.attributes['href']!),
+        id: Uri.decodeComponent(e.querySelector('a')!.attributes['href']!),
         seasonNumber: seasonNumber,
         episodeNumber: episodeNumber,
       );

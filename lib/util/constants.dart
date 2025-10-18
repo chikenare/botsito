@@ -8,3 +8,5 @@ final sources = [
   Source(name: 'Allcalidad', domains: ['allcalidad.re']),
   Source(name: 'Cinecalidad', domains: ['cinecalidad.ec']),
 ];
+
+final defaultProvider = sources.first.name;

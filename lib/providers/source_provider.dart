@@ -3,6 +3,7 @@ import 'package:botsito/models/link.dart';
 import 'package:botsito/models/season.dart';
 import 'package:botsito/plugins/sources/allcalidad.dart';
 import 'package:botsito/plugins/sources/cinecalidad.dart';
+import 'package:botsito/plugins/sources/lamovie.dart';
 import 'package:botsito/plugins/sources/pelisforte.dart';
 import 'package:botsito/util/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -10,6 +11,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'source_provider.g.dart';
 
 final Map<String, Function> _constructors = {
+  'La.movie': () => Lamovie(),
   'Cinecalidad': () => Cinecalidad(),
   'Allcalidad': () => Allcalidad(),
   'Pelisforte': () => Pelisforte(),

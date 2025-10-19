@@ -63,7 +63,12 @@ class ContentPage extends HookConsumerWidget {
           }
 
           if (provider.hasError) {
-            return Text(provider.error.toString());
+            return Column(
+              children: [
+                Text(provider.error.toString()),
+                Text(provider.stackTrace.toString()),
+              ],
+            );
           }
 
           final seasons = provider.value ?? [];

@@ -24,7 +24,7 @@ class SearchInput extends HookConsumerWidget {
       if (value.isEmpty) return;
       searchText.value = value;
       debounceTimer.value?.cancel();
-      debounceTimer.value = Timer(const Duration(milliseconds: 200), () {
+      debounceTimer.value = Timer(const Duration(milliseconds: 400), () {
         searchNotifier.search(value);
       });
     }

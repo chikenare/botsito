@@ -1,3 +1,5 @@
+import 'package:botsito/services/link_service.dart';
+
 class Link {
   final String url;
   final String language;
@@ -34,4 +36,13 @@ class Link {
       episodeNumber: episodeNumber ?? this.episodeNumber,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+    'url': url,
+    'language': language,
+    'isDownload': isDownload,
+    'seasonNumber': seasonNumber,
+    'episodeNumber': episodeNumber,
+    'languages': LinkService.getLanguages(language),
+  };
 }

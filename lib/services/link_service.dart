@@ -1,36 +1,28 @@
+import 'dart:convert';
+
 import 'package:botsito/models/link.dart';
 import 'package:flutter/services.dart';
 
 class LinkService {
   static Future<void> copyLinks(List<Link> links) async {
-    String data = '';
+    final linksData = jsonEncode(links.map((e) => e.toJson()).toList());
 
-    for (final link in links) {
-      String se = '';
-      if (link.seasonNumber != null && link.episodeNumber != null) {
-        se =
-            'S${link.seasonNumber.toString().padLeft(2, '0')}E${link.episodeNumber.toString().padLeft(2, '0')}';
-      }
-      final languages = getLanguages(link.language);
-      data += '${link.url} $se languages="$languages"\n';
-    }
-
-    await Clipboard.setData(ClipboardData(text: data));
+    await Clipboard.setData(ClipboardData(text: linksData));
   }
 
-  static String getLanguages(String language) {
+  static List<String> getLanguages(String language) {
     switch (language) {
       case 'Latino':
       case 'EspañolLatino':
-        return 'es';
+        return ['es'];
       case 'Latino/Inglés':
-        return 'es,en';
+        return ['es', 'en'];
       case 'Subtitulado':
-        return 'en';
+        return ['en'];
       case 'Castellano':
-        return 'es-ES';
+        return ['es-ES'];
       default:
-        return '???';
+        return [];
     }
   }
 }

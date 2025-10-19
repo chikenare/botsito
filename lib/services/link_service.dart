@@ -13,13 +13,16 @@ class LinkService {
   static List<String> getLanguages(String language) {
     switch (language) {
       case 'Latino':
+      case 'LATINO':
       case 'EspañolLatino':
         return ['es'];
       case 'Latino/Inglés':
         return ['es', 'en'];
       case 'Subtitulado':
+      case 'SUBTITULADO':
         return ['en'];
       case 'Castellano':
+      case 'CASTELLANO':
         return ['es-ES'];
       default:
         return [];

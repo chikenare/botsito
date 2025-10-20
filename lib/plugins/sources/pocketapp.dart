@@ -46,8 +46,7 @@ class Pocketapp implements ProviderBase {
     final List<Content> contents = [];
 
     for (final e in res.data['data']) {
-      final image =
-          'https://media.themoviedb.org/t/p/w220_and_h330_face${e['tmdb_path_poster']}';
+      final image = 'https://image.tmdb.org/t/p/w342${e['tmdb_path_poster']}';
       final isSerie = e['media_type'] == '2';
       final type = isSerie ? 'serie' : 'movie';
       contents.add(

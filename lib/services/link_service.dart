@@ -14,15 +14,18 @@ class LinkService {
     switch (language) {
       case 'Latino':
       case 'LATINO':
+      case 'LAT':
       case 'EspañolLatino':
         return ['es'];
       case 'Latino/Inglés':
         return ['es', 'en'];
       case 'Subtitulado':
       case 'SUBTITULADO':
+      case 'SUB':
         return ['en'];
       case 'Castellano':
       case 'CASTELLANO':
+      case 'ESP':
         return ['es-ES'];
       default:
         return [];

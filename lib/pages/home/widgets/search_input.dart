@@ -11,8 +11,9 @@ class SearchInput extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchNotifier = ref.read(searchProvider.notifier);
-    final searchText = useState('');
-    final debounceTimer = useState<Timer?>(null);
+    final searchText = useRef('');
+    final debounceTimer = useRef<Timer?>(null);
+    final loading = useState(false);
 
     useEffect(() {
       return () {
@@ -20,12 +21,14 @@ class SearchInput extends HookConsumerWidget {
       };
     }, []);
 
-    void onChanged(String value) {
+    void onChanged(String value) async {
       if (value.isEmpty) return;
+      loading.value = true;
       searchText.value = value;
       debounceTimer.value?.cancel();
-      debounceTimer.value = Timer(const Duration(milliseconds: 400), () {
-        searchNotifier.search(value);
+      debounceTimer.value = Timer(const Duration(milliseconds: 400), () async {
+        await searchNotifier.search(value);
+        loading.value = false;
       });
     }
 
@@ -34,6 +37,16 @@ class SearchInput extends HookConsumerWidget {
       decoration: InputDecoration(
         hintText: 'Buscar',
         prefixIcon: Icon(Icons.search),
+        suffixIcon: loading.value
+            ? Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                  width: 20,
+                  height: 20,
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                ),
+              )
+            : null,
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade400),
         ),

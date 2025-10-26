@@ -29,6 +29,8 @@ class LinkService {
       case 'Español':
       case 'ESP':
         return ['es-ES'];
+      case 'Japonés - Subtítulos Latino':
+        return ['ja'];
       default:
         return [];
     }

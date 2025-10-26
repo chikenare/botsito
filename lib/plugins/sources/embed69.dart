@@ -24,7 +24,7 @@ abstract class _FileEmbed with _$FileEmbed {
 @freezed
 abstract class _Item with _$Item {
   const factory _Item({
-    @JsonKey(name: 'file_id') required String fileId,
+    @JsonKey(name: 'file_id') required int fileId,
     @JsonKey(name: 'video_language') required String language,
     required List<_SortedEmbed> sortedEmbeds,
   }) = Item;

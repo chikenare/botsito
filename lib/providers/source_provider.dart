@@ -48,6 +48,7 @@ class Search extends _$Search {
   Future<List<Content>> build() => Future.value([]);
 
   Future<void> search(String query) async {
+    if (state.isLoading) return;
     final instance = ref.read(getSourceInstanceProvider);
     final res = await instance.search(query);
     state = AsyncValue.data(res);

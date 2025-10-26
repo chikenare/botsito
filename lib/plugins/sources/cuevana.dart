@@ -94,7 +94,7 @@ class Cuevana implements ProviderBase {
         return Episode(
           id: id,
           seasonNumber: seasonNumber,
-          episodeNumber: e['number'],
+          episodeNumber: ep['number'],
         );
       }).toList();
       return Season(seasonNumber: seasonNumber, episodes: episodes);

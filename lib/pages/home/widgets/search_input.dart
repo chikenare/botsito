@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:botsito/providers/source_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -11,25 +9,26 @@ class SearchInput extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final searchNotifier = ref.read(searchProvider.notifier);
-    final searchText = useRef('');
-    final debounceTimer = useRef<Timer?>(null);
+    final searchInput = useState('');
     final loading = useState(false);
 
+    final debouncedInput = useDebounced(
+      searchInput.value,
+      Duration(seconds: 1),
+    );
+
     useEffect(() {
-      return () {
-        debounceTimer.value?.cancel();
-      };
-    }, []);
+      if (searchInput.value.isNotEmpty) {
+        loading.value = true;
+        searchNotifier
+            .search(searchInput.value)
+            .whenComplete(() => loading.value = false);
+      }
+      return null;
+    }, [debouncedInput]);
 
     void onChanged(String value) async {
-      if (value.isEmpty) return;
-      loading.value = true;
-      searchText.value = value;
-      debounceTimer.value?.cancel();
-      debounceTimer.value = Timer(const Duration(milliseconds: 400), () async {
-        await searchNotifier.search(value);
-        loading.value = false;
-      });
+      searchInput.value = value;
     }
 
     return TextField(

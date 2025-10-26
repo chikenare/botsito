@@ -7,6 +7,7 @@ final domainRegex = RegExp(
 final sources = [
   Source(name: 'Full', domains: ['embed69']),
   Source(name: 'La.movie', domains: ['la.movie']),
+  Source(name: 'Cuevana', domains: ['cuevana.biz']),
   Source(name: 'Pocketapp', domains: []),
   Source(name: 'Allcalidad', domains: ['allcalidad.re']),
   Source(name: 'Cinecalidad', domains: ['cinecalidad.ec']),

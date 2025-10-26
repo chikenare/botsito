@@ -3,6 +3,7 @@ import 'package:botsito/models/link.dart';
 import 'package:botsito/models/season.dart';
 import 'package:botsito/plugins/sources/allcalidad.dart';
 import 'package:botsito/plugins/sources/cinecalidad.dart';
+import 'package:botsito/plugins/sources/cuevana.dart';
 import 'package:botsito/plugins/sources/embed69.dart';
 import 'package:botsito/plugins/sources/lamovie.dart';
 import 'package:botsito/plugins/sources/pelisforte.dart';
@@ -19,6 +20,7 @@ final Map<String, Function> _constructors = {
   'Cinecalidad': () => Cinecalidad(),
   'Allcalidad': () => Allcalidad(),
   'Pelisforte': () => Pelisforte(),
+  'Cuevana': () => Cuevana(),
 };
 
 @riverpod

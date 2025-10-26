@@ -15,6 +15,7 @@ class LinkService {
       case 'Latino':
       case 'LATINO':
       case 'LAT':
+      case 'Español Latino':
       case 'EspañolLatino':
         return ['es'];
       case 'Latino/Inglés':
@@ -25,6 +26,7 @@ class LinkService {
         return ['en'];
       case 'Castellano':
       case 'CASTELLANO':
+      case 'Español':
       case 'ESP':
         return ['es-ES'];
       default:

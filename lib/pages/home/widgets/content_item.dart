@@ -21,7 +21,7 @@ class ContentItem extends HookConsumerWidget {
         final links = await ref.read(linkProvider(id).future);
         await LinkService.copyLinks(links);
         if (context.mounted) {
-          showSnackbar(context, title: 'Copiado');
+          showSnackbar(context, title: '${links.length} copiados');
         }
       } catch (e) {
         if (context.mounted) {

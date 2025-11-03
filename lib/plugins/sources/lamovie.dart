@@ -42,7 +42,7 @@ class Lamovie implements ProviderBase {
     return json.map((e) {
       final image =
           'https://la.movie/wp-content/uploads${e['images']['poster']}';
-      final isSerie = e['type'] != 'peliculas';
+      final isSerie = ['tvshows', 'animes'].contains(e['type']);
 
       return Content(
         id: e['_id'].toString(),

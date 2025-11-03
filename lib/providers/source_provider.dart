@@ -7,6 +7,7 @@ import 'package:botsito/plugins/sources/cuevana.dart';
 import 'package:botsito/plugins/sources/embed69.dart';
 import 'package:botsito/plugins/sources/lamovie.dart';
 import 'package:botsito/plugins/sources/pelisforte.dart';
+import 'package:botsito/plugins/sources/pelisplushd.dart';
 import 'package:botsito/plugins/sources/pocketapp.dart';
 import 'package:botsito/util/constants.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -21,6 +22,7 @@ final Map<String, Function> _constructors = {
   'Allcalidad': () => Allcalidad(),
   'Pelisforte': () => Pelisforte(),
   'Cuevana': () => Cuevana(),
+  'Pelisplushd': () => Pelisplushd(),
 };
 
 @riverpod

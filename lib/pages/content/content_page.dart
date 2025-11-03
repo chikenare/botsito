@@ -74,7 +74,13 @@ class ContentPage extends HookConsumerWidget {
           final seasons = provider.value ?? [];
 
           if (seasons.isEmpty) {
-            return Text('Empty we');
+            return Container(
+              padding: EdgeInsets.all(20),
+              child: Text(
+                'No hay nada we :c',
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+            );
           }
 
           return Column(

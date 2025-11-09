@@ -34,7 +34,7 @@ class Lamovie implements ProviderBase {
   @override
   Future<List<Content>> search(String query) async {
     final res = await _dio.get(
-      '/wp-api/v1/search?postType=any&q=$query',
+      '/wp-api/v1/search?postType=any&q=$query&postsPerPage=5',
       options: Options(headers: {'content-type': 'application/json'}),
     );
 
@@ -57,7 +57,7 @@ class Lamovie implements ProviderBase {
   @override
   Future<List<Season>> seasons(String id) async {
     final url =
-        '/wp-api/v1/single/episodes/list?_id=$id&season=1&page=1&postsPerPage=15';
+        '/wp-api/v1/single/episodes/list?_id=$id&season=1&page=1&postsPerPage=50';
     final res = await _dio.get(
       url,
       options: Options(headers: {'content-type': 'application/json'}),
@@ -67,7 +67,7 @@ class Lamovie implements ProviderBase {
 
     for (final i in totalSeasons) {
       final url =
-          '/wp-api/v1/single/episodes/list?_id=$id&season=$i&page=1&postsPerPage=15';
+          '/wp-api/v1/single/episodes/list?_id=$id&season=$i&page=1&postsPerPage=100';
       final res = await _dio.get(
         url,
         options: Options(headers: {'content-type': 'application/json'}),

@@ -58,7 +58,7 @@ class Pelisplushd implements ProviderBase {
   Future<List<Season>> seasons(String id) async {
     final res = await _dio.get(id);
     final doc = parse(res.data);
-    final episodes = doc.querySelectorAll('#pills-vertical-1 a').map((e) {
+    final episodes = doc.querySelectorAll('a.btn-primary').map((e) {
       final path = e.attributes['href']!;
       final url = '$urlBase$path';
       final data = path.split('-');
